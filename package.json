@@ -1,0 +1,17 @@
+{
+  "name": "blue-dot-electronics",
+  "version": "1.0.0",
+  "description": "Blue Dot Electronics - Making electronics accessible for everyone",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["electronics", "arduino", "esp32", "iot", "diy", "tutorials"],
+  "author": "Mangapathi Lunavath",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
