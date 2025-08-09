@@ -1,0 +1,450 @@
+export const projects = [
+  {
+    id: '1',
+    title: 'Motion Sensor Light with PIR Sensor',
+    description: 'Learn how to create an automatic motion-activated light using PIR sensor and transistor BC547. Perfect for home automation projects.',
+    category: 'Basic Electronics',
+    difficulty: 'Beginner',
+    duration: '30 mins',
+    image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 1250,
+    downloads: 89,
+    components: [
+      'PIR Motion Sensor',
+      'BC547 Transistor', 
+      'LED (5mm)',
+      '220Ω Resistor',
+      '10kΩ Resistor',
+      '9V Battery',
+      'Breadboard',
+      'Jumper Wires'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `// Motion Sensor Light Code
+const int pirPin = 2;
+const int ledPin = 13;
+
+void setup() {
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int motion = digitalRead(pirPin);
+  
+  if (motion == HIGH) {
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Motion detected!");
+    delay(5000); // Keep light on for 5 seconds
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+  
+  delay(100);
+}`,
+    instructions: [
+      'Connect PIR sensor VCC to 5V and GND to ground',
+      'Connect PIR output to digital pin 2',
+      'Connect BC547 base to pin 2 through 10kΩ resistor',
+      'Connect LED to collector through 220Ω resistor',
+      'Connect emitter to ground',
+      'Upload code and test with motion'
+    ]
+  },
+  {
+    id: '2',
+    title: 'Clap Switch using 555 Timer',
+    description: 'Build a sound-activated switch that responds to clapping sounds using the versatile 555 timer IC in bistable mode.',
+    category: 'Arduino',
+    difficulty: 'Intermediate',
+    duration: '45 mins',
+    image: 'https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 980,
+    downloads: 67,
+    components: [
+      '555 Timer IC',
+      'Condenser Microphone',
+      'BC547 Transistor',
+      'LED',
+      'Resistors (various)',
+      'Capacitors',
+      'Relay Module',
+      'Breadboard'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `// Clap Switch Arduino Code
+const int micPin = A0;
+const int ledPin = 13;
+const int relayPin = 7;
+
+bool lightState = false;
+int threshold = 100;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(relayPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int soundLevel = analogRead(micPin);
+  
+  if (soundLevel > threshold) {
+    lightState = !lightState;
+    digitalWrite(ledPin, lightState);
+    digitalWrite(relayPin, lightState);
+    
+    Serial.println(lightState ? "Light ON" : "Light OFF");
+    delay(1000); // Debounce delay
+  }
+  
+  delay(50);
+}`,
+    instructions: [
+      'Build the 555 timer circuit in bistable mode',
+      'Connect microphone to amplification circuit',
+      'Wire the output to control relay',
+      'Test sensitivity with sound input',
+      'Adjust threshold for optimal response',
+      'Connect load device through relay'
+    ]
+  },
+  {
+    id: '3',
+    title: 'ESP32 Web Server LED Control',
+    description: 'Control LEDs wirelessly through a web interface using ESP32. Learn web server basics and IoT fundamentals.',
+    category: 'ESP32',
+    difficulty: 'Intermediate',
+    duration: '60 mins',
+    image: 'https://images.pexels.com/photos/356043/pexels-photo-356043.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 1567,
+    downloads: 234,
+    components: [
+      'ESP32 Development Board',
+      'LEDs (Red, Green, Blue)',
+      '220Ω Resistors',
+      'Breadboard',
+      'Jumper Wires',
+      'USB Cable'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `#include <WiFi.h>
+#include <WebServer.h>
+
+const char* ssid = "YourWiFiSSID";
+const char* password = "YourPassword";
+
+WebServer server(80);
+
+const int redLED = 2;
+const int greenLED = 4;
+const int blueLED = 5;
+
+void setup() {
+  Serial.begin(115200);
+  
+  pinMode(redLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+  pinMode(blueLED, OUTPUT);
+  
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  
+  Serial.println("WiFi connected!");
+  Serial.println(WiFi.localIP());
+  
+  server.on("/", handleRoot);
+  server.on("/red/on", [](){digitalWrite(redLED, HIGH); server.send(200, "text/plain", "Red LED ON");});
+  server.on("/red/off", [](){digitalWrite(redLED, LOW); server.send(200, "text/plain", "Red LED OFF");});
+  
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+}
+
+void handleRoot() {
+  String html = "<html><body><h1>ESP32 LED Control</h1>";
+  html += "<p><a href='/red/on'>Turn Red LED ON</a></p>";
+  html += "<p><a href='/red/off'>Turn Red LED OFF</a></p>";
+  html += "</body></html>";
+  server.send(200, "text/html", html);
+}`,
+    instructions: [
+      'Connect LEDs to GPIO pins 2, 4, and 5',
+      'Add 220Ω resistors in series with each LED',
+      'Install ESP32 board package in Arduino IDE',
+      'Update WiFi credentials in code',
+      'Upload code to ESP32',
+      'Access web interface using ESP32 IP address'
+    ]
+  },
+  {
+    id: '4',
+    title: 'Arduino Temperature Monitor with LCD',
+    description: 'Display real-time temperature and humidity readings on an LCD screen using DHT22 sensor and Arduino.',
+    category: 'Arduino',
+    difficulty: 'Beginner',
+    duration: '40 mins',
+    image: 'https://images.pexels.com/photos/276514/pexels-photo-276514.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 2100,
+    downloads: 156,
+    components: [
+      'Arduino Uno',
+      'DHT22 Temperature Sensor',
+      '16x2 LCD Display',
+      '10kΩ Potentiometer',
+      'Breadboard',
+      'Jumper Wires'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `#include <LiquidCrystal.h>
+#include <DHT.h>
+
+#define DHTPIN 2
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  lcd.begin(16, 2);
+  dht.begin();
+  lcd.print("Temp & Humidity");
+  lcd.setCursor(0, 1);
+  lcd.print("Monitor Starting");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  
+  if (isnan(temperature) || isnan(humidity)) {
+    lcd.clear();
+    lcd.print("Sensor Error!");
+    return;
+  }
+  
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print("C");
+  
+  lcd.setCursor(0, 1);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print("%");
+  
+  delay(2000);
+}`,
+    instructions: [
+      'Wire LCD display to Arduino (pins 12,11,5,4,3,2)',
+      'Connect DHT22 sensor to digital pin 2',
+      'Add potentiometer for LCD contrast control',
+      'Install DHT and LiquidCrystal libraries',
+      'Upload code and verify sensor readings',
+      'Calibrate display contrast if needed'
+    ]
+  },
+  {
+    id: '5',
+    title: 'IoT Plant Watering System',
+    description: 'Automated plant care system using soil moisture sensor, water pump, and ESP32 with mobile app control.',
+    category: 'IoT',
+    difficulty: 'Advanced',
+    duration: '120 mins',
+    image: 'https://images.pexels.com/photos/1301856/pexels-photo-1301856.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 1890,
+    downloads: 98,
+    components: [
+      'ESP32 Board',
+      'Soil Moisture Sensor',
+      'Water Pump (5V)',
+      'Relay Module',
+      'DHT22 Sensor',
+      'OLED Display',
+      'Tubing and Container'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+#include <DHT.h>
+
+#define DHTPIN 4
+#define DHTTYPE DHT22
+#define SOIL_PIN A0
+#define PUMP_PIN 2
+#define RELAY_PIN 5
+
+DHT dht(DHTPIN, DHTTYPE);
+
+char auth[] = "YourBlynkToken";
+char ssid[] = "YourWiFi";
+char pass[] = "YourPassword";
+
+BlynkTimer timer;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PUMP_PIN, OUTPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  
+  dht.begin();
+  Blynk.begin(auth, ssid, pass);
+  
+  timer.setInterval(10000L, sendSensorData);
+  timer.setInterval(60000L, checkSoilMoisture);
+}
+
+void loop() {
+  Blynk.run();
+  timer.run();
+}
+
+void sendSensorData() {
+  float temp = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  int soilMoisture = analogRead(SOIL_PIN);
+  
+  Blynk.virtualWrite(V1, temp);
+  Blynk.virtualWrite(V2, humidity);
+  Blynk.virtualWrite(V3, soilMoisture);
+}
+
+void checkSoilMoisture() {
+  int moisture = analogRead(SOIL_PIN);
+  if (moisture < 300) { // Dry soil threshold
+    digitalWrite(RELAY_PIN, HIGH);
+    delay(5000); // Water for 5 seconds
+    digitalWrite(RELAY_PIN, LOW);
+    Blynk.notify("Plant watered automatically!");
+  }
+}
+
+BLYNK_WRITE(V4) {
+  if (param.asInt() == 1) {
+    digitalWrite(RELAY_PIN, HIGH);
+    delay(3000);
+    digitalWrite(RELAY_PIN, LOW);
+  }
+}`,
+    instructions: [
+      'Set up Blynk account and create new project',
+      'Connect soil moisture sensor to analog pin',
+      'Wire relay module to control water pump',
+      'Install required libraries in Arduino IDE',
+      'Configure Blynk app with widgets',
+      'Test automatic and manual watering modes',
+      'Set up notifications for plant care reminders'
+    ]
+  },
+  {
+    id: '6',
+    title: 'LED Traffic Light Controller',
+    description: 'Simulate a realistic traffic light system with timing controls and pedestrian crossing features using Arduino.',
+    category: 'Basic Electronics',
+    difficulty: 'Beginner',
+    duration: '35 mins',
+    image: 'https://images.pexels.com/photos/442579/pexels-photo-442579.jpeg?auto=compress&cs=tinysrgb&w=400',
+    views: 1456,
+    downloads: 78,
+    components: [
+      'Arduino Uno',
+      'Red LED (3x)',
+      'Yellow LED (3x)', 
+      'Green LED (3x)',
+      '220Ω Resistors (9x)',
+      'Breadboard',
+      'Jumper Wires'
+    ],
+    youtubeId: 'dQw4w9WgXcQ',
+    schematic: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=600',
+    code: `// Traffic Light Controller
+const int redLight1 = 2;
+const int yellowLight1 = 3;
+const int greenLight1 = 4;
+
+const int redLight2 = 5;
+const int yellowLight2 = 6;
+const int greenLight2 = 7;
+
+void setup() {
+  pinMode(redLight1, OUTPUT);
+  pinMode(yellowLight1, OUTPUT);
+  pinMode(greenLight1, OUTPUT);
+  pinMode(redLight2, OUTPUT);
+  pinMode(yellowLight2, OUTPUT);
+  pinMode(greenLight2, OUTPUT);
+}
+
+void loop() {
+  // Direction 1: Green, Direction 2: Red
+  digitalWrite(greenLight1, HIGH);
+  digitalWrite(redLight2, HIGH);
+  delay(5000);
+  
+  // Direction 1: Yellow, Direction 2: Red
+  digitalWrite(greenLight1, LOW);
+  digitalWrite(yellowLight1, HIGH);
+  delay(2000);
+  
+  // Direction 1: Red, Direction 2: Red (all stop)
+  digitalWrite(yellowLight1, LOW);
+  digitalWrite(redLight1, HIGH);
+  delay(1000);
+  
+  // Direction 1: Red, Direction 2: Green
+  digitalWrite(redLight2, LOW);
+  digitalWrite(greenLight2, HIGH);
+  delay(5000);
+  
+  // Direction 1: Red, Direction 2: Yellow
+  digitalWrite(greenLight2, LOW);
+  digitalWrite(yellowLight2, HIGH);
+  delay(2000);
+  
+  // All Red before cycle repeats
+  digitalWrite(yellowLight2, LOW);
+  digitalWrite(redLight2, HIGH);
+  delay(1000);
+  digitalWrite(redLight1, LOW);
+}`,
+    instructions: [
+      'Connect LEDs to digital pins 2-7 with resistors',
+      'Organize LEDs to represent two traffic directions',
+      'Upload the traffic light control code',
+      'Test the timing sequence',
+      'Adjust delays for different timing needs',
+      'Add pedestrian button for manual override'
+    ]
+  }
+];
+
+export const categories = [
+  'All',
+  'Arduino', 
+  'ESP32',
+  'IoT',
+  'Basic Electronics',
+  'Sensors',
+  'Robotics'
+];
+
+export const difficulties = [
+  'All',
+  'Beginner',
+  'Intermediate', 
+  'Advanced'
+];

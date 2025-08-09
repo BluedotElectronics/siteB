@@ -1,0 +1,514 @@
+export const articles = [
+  {
+    id: '1',
+    title: 'Understanding Resistors: The Foundation of Electronics',
+    excerpt: 'Learn everything about resistors - from color codes to power ratings and practical applications in electronic circuits.',
+    category: 'Basic Electronics',
+    readTime: '8 min read',
+    image: 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg?auto=compress&cs=tinysrgb&w=400',
+    publishDate: '2024-01-15',
+    content: `
+# Understanding Resistors: The Foundation of Electronics
+
+Resistors are one of the most fundamental components in electronics. They control the flow of electric current in a circuit by providing resistance.
+
+## What is a Resistor?
+
+A resistor is a passive electrical component that implements electrical resistance as a circuit element. In electronic circuits, resistors are used to reduce current flow, adjust signal levels, divide voltages, bias active elements, and terminate transmission lines.
+
+## Types of Resistors
+
+### Fixed Resistors
+- Carbon composition resistors
+- Carbon film resistors  
+- Metal film resistors
+- Wire wound resistors
+
+### Variable Resistors
+- Potentiometers
+- Rheostats
+- Trimmers
+
+## Resistor Color Code
+
+The resistor color code is a system used to indicate the resistance value and tolerance of resistors:
+
+| Color | Digit | Multiplier | Tolerance |
+|-------|-------|------------|-----------|
+| Black | 0 | 1 | - |
+| Brown | 1 | 10 | ±1% |
+| Red | 2 | 100 | ±2% |
+| Orange | 3 | 1,000 | - |
+| Yellow | 4 | 10,000 | - |
+| Green | 5 | 100,000 | ±0.5% |
+| Blue | 6 | 1,000,000 | ±0.25% |
+| Violet | 7 | 10,000,000 | ±0.1% |
+| Gray | 8 | - | ±0.05% |
+| White | 9 | - | - |
+| Gold | - | 0.1 | ±5% |
+| Silver | - | 0.01 | ±10% |
+
+## Power Rating
+
+Resistors have power ratings that indicate how much power they can safely dissipate as heat. Common power ratings include:
+- 1/8 watt (0.125W)
+- 1/4 watt (0.25W)  
+- 1/2 watt (0.5W)
+- 1 watt
+- 2 watts and higher
+
+## Practical Applications
+
+1. **Current Limiting**: Protecting LEDs and other components
+2. **Voltage Division**: Creating reference voltages
+3. **Pull-up/Pull-down**: Digital circuit applications
+4. **Biasing**: Setting operating points for transistors
+5. **Filtering**: RC time constants in filters
+
+## Ohm's Law and Resistors
+
+Ohm's Law is fundamental when working with resistors:
+- V = I × R (Voltage = Current × Resistance)
+- P = V² / R (Power = Voltage² / Resistance)
+- P = I² × R (Power = Current² × Resistance)
+
+## Series and Parallel Combinations
+
+### Series Resistors
+Total resistance = R1 + R2 + R3 + ...
+
+### Parallel Resistors  
+1/Total resistance = 1/R1 + 1/R2 + 1/R3 + ...
+
+## Choosing the Right Resistor
+
+When selecting resistors for your projects, consider:
+1. Resistance value
+2. Power rating
+3. Tolerance
+4. Temperature coefficient
+5. Package size
+6. Cost
+
+## Common Mistakes to Avoid
+
+- Using resistors with insufficient power ratings
+- Misreading color codes
+- Not considering tolerance in precision circuits
+- Using variable resistors where fixed values are needed
+
+Understanding resistors is crucial for any electronics enthusiast. They form the backbone of most electronic circuits and mastering their use will significantly improve your project success rate.
+    `
+  },
+  {
+    id: '2',
+    title: 'Getting Started with Arduino IDE: Complete Setup Guide',
+    excerpt: 'Step-by-step guide to install, configure, and use Arduino IDE for your electronics projects. Perfect for beginners.',
+    category: 'Arduino',
+    readTime: '12 min read',
+    image: 'https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&w=400',
+    publishDate: '2024-01-10',
+    content: `
+# Getting Started with Arduino IDE: Complete Setup Guide
+
+The Arduino Integrated Development Environment (IDE) is the primary tool for programming Arduino microcontrollers. This comprehensive guide will help you get started.
+
+## What is Arduino IDE?
+
+Arduino IDE is a cross-platform application written in Java that provides a simple interface for writing, compiling, and uploading code to Arduino boards.
+
+## Installation Process
+
+### Windows
+1. Download Arduino IDE from arduino.cc
+2. Run the installer executable
+3. Follow the installation wizard
+4. Connect your Arduino board via USB
+
+### macOS
+1. Download the Arduino IDE DMG file
+2. Drag the Arduino IDE to Applications folder
+3. Install any required drivers
+4. Launch the application
+
+### Linux
+1. Download the Linux version
+2. Extract the archive
+3. Run the install script
+4. Add user to dialout group for USB permissions
+
+## Interface Overview
+
+### Main Components
+- **Menu Bar**: File, Edit, Sketch, Tools, Help
+- **Toolbar**: Quick access buttons
+- **Editor**: Where you write your code
+- **Message Area**: Compilation messages
+- **Text Console**: Detailed output and errors
+
+### Key Buttons
+- **Verify**: Compiles your code
+- **Upload**: Uploads code to Arduino
+- **Serial Monitor**: View serial communication
+
+## Board Configuration
+
+1. Select your board: Tools → Board
+2. Choose the correct port: Tools → Port
+3. Verify the programmer setting
+
+## Writing Your First Sketch
+
+\`\`\`cpp
+void setup() {
+  // Initialize digital pin LED_BUILTIN as an output
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);   // Turn LED on
+  delay(1000);                       // Wait 1 second
+  digitalWrite(LED_BUILTIN, LOW);    // Turn LED off
+  delay(1000);                       // Wait 1 second
+}
+\`\`\`
+
+## Essential Features
+
+### Library Manager
+- Tools → Manage Libraries
+- Search and install libraries
+- Keep libraries updated
+
+### Serial Monitor
+- View output from Serial.print()
+- Send data to Arduino
+- Essential for debugging
+
+### Serial Plotter
+- Visualize numerical data
+- Great for sensor readings
+- Real-time plotting
+
+## Keyboard Shortcuts
+
+| Action | Windows/Linux | macOS |
+|--------|---------------|--------|
+| Verify | Ctrl+R | Cmd+R |
+| Upload | Ctrl+U | Cmd+U |
+| New | Ctrl+N | Cmd+N |
+| Open | Ctrl+O | Cmd+O |
+| Save | Ctrl+S | Cmd+S |
+
+## Preferences and Settings
+
+### Important Settings
+- Sketchbook location
+- Editor font size
+- Auto-format
+- Line numbers
+- Code folding
+
+### Additional Board Support
+- File → Preferences
+- Additional Board Manager URLs
+- Tools → Board → Board Manager
+
+## Troubleshooting Common Issues
+
+### Upload Problems
+- Check board selection
+- Verify correct port
+- Ensure drivers are installed
+- Try different USB cable
+
+### Compilation Errors
+- Check syntax carefully
+- Verify library installation
+- Look for missing semicolons
+- Check variable declarations
+
+### Serial Monitor Issues
+- Set correct baud rate
+- Close other serial applications
+- Check serial port permissions
+
+## Advanced Features
+
+### Tabs and Multiple Files
+- Organize large projects
+- Create header files
+- Use tabs for different functions
+
+### Sketch Data Folder
+- Store data files
+- Upload files to SPIFFS
+- Organize project resources
+
+## Best Practices
+
+1. **Code Organization**
+   - Use meaningful variable names
+   - Add comments to explain logic
+   - Break complex code into functions
+
+2. **Version Control**
+   - Use Git for project management
+   - Regular commits and backups
+   - Document changes
+
+3. **Testing**
+   - Test code incrementally
+   - Use Serial.print() for debugging
+   - Validate inputs and outputs
+
+## Useful Extensions
+
+### Third-party IDEs
+- PlatformIO
+- Visual Studio Code with Arduino extension
+- Eclipse Arduino IDE
+
+### Online Alternatives
+- Arduino Web Editor
+- Tinkercad Circuits
+- Wokwi Simulator
+
+## Next Steps
+
+Once you're comfortable with Arduino IDE:
+1. Explore advanced programming concepts
+2. Learn about different Arduino boards
+3. Experiment with sensors and actuators
+4. Join the Arduino community
+
+The Arduino IDE is your gateway to the world of microcontroller programming. Take time to familiarize yourself with its features, and don't hesitate to experiment with different settings to find what works best for your workflow.
+    `
+  },
+  {
+    id: '3',
+    title: 'ESP32 vs Arduino: Which Microcontroller Should You Choose?',
+    excerpt: 'Comprehensive comparison between ESP32 and Arduino boards to help you choose the right platform for your next project.',
+    category: 'Comparison',
+    readTime: '10 min read',
+    image: 'https://images.pexels.com/photos/356043/pexels-photo-356043.jpeg?auto=compress&cs=tinysrgb&w=400',
+    publishDate: '2024-01-05',
+    content: `
+# ESP32 vs Arduino: Which Microcontroller Should You Choose?
+
+Choosing between ESP32 and Arduino can be challenging for both beginners and experienced makers. This guide will help you make an informed decision.
+
+## Overview
+
+### Arduino
+Arduino refers to both hardware boards and the development ecosystem. Popular boards include Uno, Nano, and Mega.
+
+### ESP32
+ESP32 is a system-on-chip (SoC) with integrated Wi-Fi and Bluetooth, offering powerful processing capabilities.
+
+## Detailed Comparison
+
+### Processing Power
+
+**Arduino Uno (ATmega328P)**
+- 8-bit microcontroller
+- 16 MHz clock speed
+- 32 KB flash memory
+- 2 KB SRAM
+
+**ESP32**
+- 32-bit dual-core processor
+- Up to 240 MHz clock speed
+- 4 MB flash memory (typical)
+- 520 KB SRAM
+
+*Winner: ESP32* - Significantly more powerful
+
+### Connectivity
+
+**Arduino**
+- No built-in wireless connectivity
+- Requires additional shields/modules
+- USB for programming
+- Various communication protocols (I2C, SPI, UART)
+
+**ESP32**
+- Built-in Wi-Fi (802.11 b/g/n)
+- Bluetooth 4.2 and BLE
+- USB for programming
+- Same communication protocols as Arduino
+
+*Winner: ESP32* - Built-in wireless capabilities
+
+### Power Consumption
+
+**Arduino Uno**
+- ~20 mA during operation
+- ~15 mA in idle mode
+- No built-in power management
+
+**ESP32**
+- ~160-240 mA during Wi-Fi operation
+- ~20 mA in light sleep mode  
+- ~2.5 μA in deep sleep mode
+- Advanced power management
+
+*Winner: Arduino* - Lower baseline consumption, but ESP32 has better sleep modes
+
+### GPIO and Peripherals
+
+**Arduino Uno**
+- 14 digital I/O pins
+- 6 analog inputs
+- 6 PWM outputs
+- 1 UART, 1 SPI, 1 I2C
+
+**ESP32**
+- 34 GPIO pins (varies by board)
+- 18 analog inputs (12-bit ADC)
+- Multiple PWM channels
+- 3 UART, 4 SPI, 2 I2C
+- Touch sensors, Hall effect sensor
+
+*Winner: ESP32* - More pins and peripherals
+
+### Development Environment
+
+**Arduino**
+- Arduino IDE (simple and beginner-friendly)
+- Extensive library support
+- Large community
+- Plenty of tutorials and examples
+
+**ESP32**
+- Arduino IDE support (ESP32 core)
+- ESP-IDF (advanced development framework)
+- MicroPython support
+- Growing library ecosystem
+
+*Winner: Arduino* - More mature ecosystem, but ESP32 is catching up
+
+### Cost Comparison
+
+**Arduino Uno**
+- Official boards: $20-25
+- Compatible boards: $5-15
+
+**ESP32**
+- Development boards: $5-15
+- Module-only versions: $2-5
+
+*Winner: ESP32* - Generally more affordable
+
+### Use Case Scenarios
+
+### When to Choose Arduino
+
+1. **Learning Electronics**
+   - Simpler to understand
+   - Extensive educational resources
+   - Less overwhelming for beginners
+
+2. **Simple Projects**
+   - Basic sensor reading
+   - LED control
+   - Motor control without wireless needs
+
+3. **Real-time Applications**
+   - Lower latency requirements
+   - Predictable timing
+   - Simple control loops
+
+4. **Long Battery Life**
+   - Projects requiring months/years of battery life
+   - Minimal power consumption requirements
+
+### When to Choose ESP32
+
+1. **IoT Projects**
+   - Need Wi-Fi or Bluetooth connectivity
+   - Remote monitoring/control
+   - Cloud integration
+
+2. **Data-Intensive Applications**
+   - Image processing
+   - Complex algorithms
+   - Multiple sensor fusion
+
+3. **Web Servers**
+   - Hosting web interfaces
+   - REST APIs
+   - Real-time dashboards
+
+4. **Advanced Projects**
+   - Machine learning inference
+   - Audio processing
+   - Complex automation systems
+
+## Project Examples
+
+### Arduino Projects
+- Temperature logger with LCD
+- Traffic light controller
+- Servo motor control
+- Simple robotics
+- Home automation (no wireless)
+
+### ESP32 Projects
+- Weather station with web interface
+- Smart home hub
+- Security camera with notifications
+- Bluetooth audio streamer
+- GPS tracker with cloud logging
+
+## Learning Path Recommendations
+
+### For Beginners
+1. Start with Arduino Uno
+2. Learn basic programming concepts
+3. Understand electronics fundamentals
+4. Graduate to ESP32 for wireless projects
+
+### For Intermediate Users
+1. Choose based on project requirements
+2. Arduino for simple, reliable projects
+3. ESP32 for feature-rich applications
+
+### For Advanced Users
+1. Use ESP32 for most new projects
+2. Arduino for specific use cases
+3. Consider ESP32-S3 or ESP32-C3 variants
+
+## Conclusion
+
+Both platforms have their strengths:
+
+**Choose Arduino if you:**
+- Are new to electronics
+- Need simple, reliable operation
+- Want maximum battery life
+- Don't need wireless connectivity
+
+**Choose ESP32 if you:**
+- Need Wi-Fi or Bluetooth
+- Want more processing power
+- Are building IoT applications
+- Need cost-effective solutions
+
+The best choice depends on your specific project requirements, experience level, and future expansion plans. Many makers eventually use both platforms for different types of projects.
+
+Remember: There's no universal "better" choice – only the right choice for your specific needs.
+    `
+  }
+];
+
+export const articleCategories = [
+  'All',
+  'Basic Electronics',
+  'Arduino', 
+  'ESP32',
+  'IoT',
+  'Tutorials',
+  'Comparison',
+  'Reviews'
+];

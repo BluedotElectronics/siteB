@@ -1,0 +1,146 @@
+import React, { useState, useMemo } from 'react';
+import { Filter, Search } from 'lucide-react';
+import ProjectCard from '../components/ProjectCard';
+import { projects, categories, difficulties } from '../data/projects';
+
+interface ProjectsPageProps {
+  searchQuery: string;
+}
+
+const ProjectsPage: React.FC<ProjectsPageProps> = ({ searchQuery }) => {
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const filteredProjects = useMemo(() => {
+    return projects.filter(project => {
+      const matchesSearch = searchQuery === '' || 
+        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.category.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesCategory = selectedCategory === 'All' || project.category === selectedCategory;
+      const matchesDifficulty = selectedDifficulty === 'All' || project.difficulty === selectedDifficulty;
+      
+      return matchesSearch && matchesCategory && matchesDifficulty;
+    });
+  }, [searchQuery, selectedCategory, selectedDifficulty]);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-blue-600 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Electronics Projects</h1>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Discover step-by-step tutorials, schematics, and code for Arduino, ESP32, IoT, and basic electronics projects
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Filters */}
+        <div className="mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            {/* Mobile Filter Toggle */}
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="lg:hidden flex items-center justify-center space-x-2 bg-white border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50"
+            >
+              <Filter className="w-4 h-4" />
+              <span>Filters</span>
+            </button>
+
+            {/* Filter Options */}
+            <div className={`${isFilterOpen ? 'block' : 'hidden'} lg:flex flex-col lg:flex-row gap-4 lg:gap-6`}>
+              {/* Category Filter */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Category:</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Difficulty Filter */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <label className="text-sm font-medium text-gray-700 whitespace-nowrap">Difficulty:</label>
+                <select
+                  value={selectedDifficulty}
+                  onChange={(e) => setSelectedDifficulty(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  {difficulties.map(difficulty => (
+                    <option key={difficulty} value={difficulty}>{difficulty}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Results Count */}
+            <div className="text-sm text-gray-600">
+              Showing {filteredProjects.length} of {projects.length} projects
+              {searchQuery && (
+                <span> for "{searchQuery}"</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Search Results Message */}
+        {searchQuery && (
+          <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+            <div className="flex items-center">
+              <Search className="w-5 h-5 text-blue-400 mr-2" />
+              <p className="text-blue-700">
+                {filteredProjects.length > 0 
+                  ? `Found ${filteredProjects.length} project${filteredProjects.length === 1 ? '' : 's'} matching "${searchQuery}"`
+                  : `No projects found matching "${searchQuery}". Try different keywords or browse all projects.`
+                }
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Projects Grid */}
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="max-w-md mx-auto">
+              <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No projects found</h3>
+              <p className="text-gray-600 mb-6">
+                Try adjusting your search terms or filters to find what you're looking for.
+              </p>
+              <button
+                onClick={() => {
+                  setSelectedCategory('All');
+                  setSelectedDifficulty('All');
+                }}
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProjectsPage;
